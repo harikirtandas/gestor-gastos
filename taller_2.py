@@ -15,7 +15,7 @@ def pedir_dia():
     """
     while True:
         # Pedimos al usuario que ingrese el día y limpiamos espacios en blanco
-        dia = input("Ingrese el día (1-31): ").strip()
+        dia = input("Día del gasto (entre 1 y 31): ").strip()
         # Verificamos que la entrada sea solo números (sin letras ni símbolos)
         if dia.isdigit():
             dia_num = int(dia)  # Convertimos el valor a entero para hacer validaciones numéricas
@@ -44,7 +44,7 @@ def pedir_mes():
     """
     while True:
         # Solicitamos el mes y eliminamos espacios en blanco
-        mes = input("Ingrese el mes (1-12): ").strip()
+        mes = input("Mes del gasto (entre 1 y 12): ").strip()
         # Verificamos que el input contenga solo números
         if mes.isdigit():
             mes_num = int(mes)  # Convertimos el valor a entero para validar rango
@@ -72,7 +72,7 @@ def pedir_año():
     """
     while True:
         # Pedimos el año y limpiamos espacios
-        año = input("Ingrese el año (por ejemplo 2025): ").strip()
+        año = input("Año del gasto (ej: 2025): ").strip()
         # Verificamos que sea solo números
         if año.isdigit():
             año_num = int(año)  # Convertimos a entero para validar rango
@@ -131,11 +131,10 @@ while True:
                 print("⚠️ Ingrese un número válido (ej: 1234.56).")
 
         # Se registran los otros campos del gasto y se normalizan
-        categoria = input("Categoría (almacén, verdulería, transporte, otra):\n").strip().capitalize()
-        descripcion = input("Descripción (colectivo, remis, alimento, varios):\n").strip().capitalize()
+        categoria = input("Ingrese la categoría del gasto (ej: Verdulería, Almacén, Transporte, Otra):\n").strip().capitalize()
+        descripcion = input("Ingrese una breve descripción del gasto (ej: Colectivo, Remis, Fruta, Harina):\n").strip().capitalize()
 
-        # Fecha desglosada en día, mes y año, con validación de entrada
-
+        # Fecha desglosada en día, mes y año, con validación por funciones
         dia = pedir_dia()
         mes = pedir_mes()
         año = pedir_año()
@@ -187,16 +186,19 @@ while True:
     # OPCIÓN 3: Ver gastos por categoría
     elif opcion == '3':
         print('\n--- GASTOS POR CATEGORÍA ---')
-        cat = input("Ingresá la categoría a consultar: ").strip().capitalize()
+        cat = input("¿Qué categoría querés consultar? (ej: Verdulería, Almacén, Transporte): ").strip().capitalize()
         encontrado = False
+        subtotal = 0  # Mejora: Acumulador de montos por categoría
         print()
         for gasto in gastos:
             if gasto["categoria"] == cat:
                 print(f"📌 Categoría: {gasto['categoria']} | Monto: ${gasto['monto']:.2f} | Descripción: {gasto['descripción']} | Fecha: {gasto['fecha']}")
+                subtotal += gasto["monto"]  # Sumar al total de la categoría
                 encontrado = True
         if not encontrado:
             print("\n❌ No hay registros para esa categoría.")
-
+        else:
+            print(f"\n🔸 Total gastado en '{cat}': ${subtotal:.2f}")
 
     # OPCIÓN 4: Ver total gastado
     elif opcion == "4":
