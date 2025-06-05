@@ -1,5 +1,89 @@
 # GESTOR DE GASTOS DIARIOS EN PYTHON
 
+# Función para solicitar y validar el día (1-31)
+def pedir_dia():
+    """
+    Solicita al usuario ingresar un día válido.
+
+    La función repite la solicitud hasta que el usuario ingrese un número entero
+    entre 1 y 31. Luego devuelve el día formateado como string con dos dígitos,
+    por ejemplo '01', '15'.
+
+    Retorna:
+        str: Día formateado con dos dígitos.
+    """
+    while True:
+        # Pedimos al usuario que ingrese el día y limpiamos espacios en blanco
+        dia = input("Ingrese el día (1-31): ").strip()
+        # Verificamos que la entrada sea solo números (sin letras ni símbolos)
+        if dia.isdigit():
+            dia_num = int(dia)  # Convertimos el valor a entero para hacer validaciones numéricas
+            if 1 <= dia_num <= 31:
+                # Si el día está dentro del rango válido, lo devolvemos con formato 'dd'
+                return f"{dia_num:02d}"
+            else:
+                # Mensaje de error si el número no está entre 1 y 31
+                print("⚠️ El día debe estar entre 1 y 31.")
+        else:
+            # Mensaje de error si la entrada contiene caracteres no numéricos
+            print("⚠️ Ingrese solo números.")
+
+
+# Función para solicitar y validar el mes (1-12)
+def pedir_mes():
+    """
+    Solicita al usuario ingresar un mes válido.
+
+    La función repite la solicitud hasta que el usuario ingrese un número entero
+    entre 1 y 12. Luego devuelve el mes formateado como string con dos dígitos,
+    por ejemplo '01', '12'.
+
+    Retorna:
+        str: Mes formateado con dos dígitos.
+    """
+    while True:
+        # Solicitamos el mes y eliminamos espacios en blanco
+        mes = input("Ingrese el mes (1-12): ").strip()
+        # Verificamos que el input contenga solo números
+        if mes.isdigit():
+            mes_num = int(mes)  # Convertimos el valor a entero para validar rango
+            if 1 <= mes_num <= 12:
+                # Si está dentro del rango, devolvemos el mes formateado
+                return f"{mes_num:02d}"
+            else:
+                # Mensaje de error si el número no está entre 1 y 12
+                print("⚠️ El mes debe estar entre 1 y 12.")
+        else:
+            # Mensaje de error si la entrada tiene caracteres no numéricos
+            print("⚠️ Ingrese solo números.")
+
+
+# Función para solicitar y validar el año (2000-2100)
+def pedir_año():
+    """
+    Solicita al usuario ingresar un año válido.
+
+    La función repite la solicitud hasta que el usuario ingrese un número entero
+    entre 2000 y 2100. Luego devuelve el año como string.
+
+    Retorna:
+        str: Año ingresado.
+    """
+    while True:
+        # Pedimos el año y limpiamos espacios
+        año = input("Ingrese el año (por ejemplo 2025): ").strip()
+        # Verificamos que sea solo números
+        if año.isdigit():
+            año_num = int(año)  # Convertimos a entero para validar rango
+            if 2000 <= año_num <= 2100:
+                # Devolvemos el año como string
+                return str(año_num)
+            else:
+                # Mensaje si el año está fuera del rango esperado
+                print("⚠️ Ingrese un año válido entre 1900 y 2100.")
+        else:
+            # Mensaje si la entrada contiene caracteres inválidos
+            print("⚠️ Ingrese solo números.")
 # Mensaje de bienvenida
 print("Bienvenido/a al gestor de gastos diarios 📈\n")
 
@@ -48,44 +132,9 @@ while True:
 
         # Fecha desglosada en día, mes y año, con validación de entrada
 
-        # Se pide DIA. Validación del día (1 al 31)
-        while True:
-            dia = input("Ingrese el día (1-31): ").strip()
-            if dia.isdigit():
-                dia_num = int(dia)
-                if 1 <= dia_num <= 31:
-                    dia = f"{dia_num:02d}" # Asegura que tenga dos dígitos (ej. 01, 09, 22)
-                    break
-                else:
-                    print("⚠️ El día debe estar entre 1 y 31.")
-            else:
-                print("⚠️ Ingrese solo números.")
-
-        # Se pide MES. Validación del mes (1 al 12)
-        while True:
-            mes = input("Ingrese el mes (1-12): ").strip()
-            if mes.isdigit():
-                mes_num = int(mes)
-                if 1 <= mes_num <= 12:
-                    mes = f"{mes_num:02d}" # Asegura que tenga dos dígitos (ej. 01, 09)
-                    break
-                else:
-                    print("⚠️ El mes debe estar entre 1 y 12.")
-            else:
-                print("⚠️ Ingrese solo números.")
-
-        # Se pide AÑO. Validación del año (rango lógico)
-        while True:
-            año = input("Ingrese el año (por ejemplo 2025): ").strip()
-            if año.isdigit():
-                año_num = int(año)
-                if 2000 <= año_num <= 2100:
-                    año = str(año_num)
-                    break
-                else:
-                    print("⚠️ Ingrese un año válido entre 1900 y 2100.")
-            else:
-                print("⚠️ Ingrese solo números.")
+        dia = pedir_dia()
+        mes = pedir_mes()
+        año = pedir_año()
 
         # Composición final de la fecha en formato DD/MM/AAAA
         fecha = f"{dia}/{mes}/{año}"
@@ -105,42 +154,9 @@ while True:
     elif opcion == '2':
         print('\n--- GASTOS POR FECHA ---\n')
 
-        # Se piden día, mes y año para la búsqueda. Se repiten las validaciones
-        while True: # DIA
-            dia_consulta = input("Ingrese el día (1-31): ").strip()
-            if dia_consulta.isdigit():
-                d = int(dia_consulta)
-                if 1 <= d <= 31:
-                    dia_consulta = f"{d:02d}"
-                    break
-                else:
-                    print("⚠️ El día debe estar entre 1 y 31.")
-            else:
-                print("⚠️ Ingrese solo números.")
-
-        while True: # MES
-            mes_consulta = input("Ingrese el mes (1-12): ").strip()
-            if mes_consulta.isdigit():
-                m = int(mes_consulta)
-                if 1 <= m <= 12:
-                    mes_consulta = f"{m:02d}"
-                    break
-                else:
-                    print("⚠️ El mes debe estar entre 1 y 12.")
-            else:
-                print("⚠️ Ingrese solo números.")
-
-        while True: # AÑO
-            año_consulta = input("Ingrese el año (por ejemplo 2025): ").strip()
-            if año_consulta.isdigit():
-                a = int(año_consulta)
-                if 2000 <= a <= 2100:
-                    año_consulta = str(a)
-                    break
-                else:
-                    print("⚠️ Ingrese un año válido entre 1900 y 2100.")
-            else:
-                print("⚠️ Ingrese solo números.")
+        dia_consulta = pedir_dia()
+        mes_consulta = pedir_mes()
+        año_consulta = pedir_año()
 
         # Se arma la fecha de consulta
         print("\n" + ('-' * 24))
@@ -215,3 +231,8 @@ while True:
     # Cualquier otra opción inválida
     else:
         print("\n❌ Opción inválida. Elegí un número del 1 al 6.")
+
+
+# git add .
+# git commit -m "mensaje"
+# git push
