@@ -1,5 +1,6 @@
 # GESTOR DE GASTOS DIARIOS EN PYTHON
 
+# FUNCIONES
 # Función para solicitar y validar el día (1-31)
 def pedir_dia():
     """
@@ -84,6 +85,9 @@ def pedir_año():
         else:
             # Mensaje si la entrada contiene caracteres inválidos
             print("⚠️ Ingrese solo números.")
+
+
+# PROGRAMA PRINCIPAL 
 # Mensaje de bienvenida
 print("Bienvenido/a al gestor de gastos diarios 📈\n")
 
@@ -164,6 +168,7 @@ while True:
 
         encontrado = False
         mostrar_fecha = True # Controla si ya mostramos la fecha o no
+        subtotal = 0  # Mejora: variable para acumular el total del día
 
         # Se recorren los gastos y se filtran por la fecha buscada
         for gasto in gastos:
@@ -172,10 +177,12 @@ while True:
                     print(f"\n📅 Fecha: {gasto['fecha']}\n")
                     mostrar_fecha = False
                 print(f"Monto: ${gasto['monto']:.2f}, Categoría : {gasto['categoria']}, Descripción: {gasto['descripción']}")
+                subtotal += gasto["monto"]  # Sumamos el gasto al subtotal
                 encontrado = True
         if not encontrado:
             print("\n❌ No hay registros para esa fecha.")
-
+        else:
+            print(f"\n🔸 Total gastado en esa fecha: ${subtotal:.2f}")
 
     # OPCIÓN 3: Ver gastos por categoría
     elif opcion == '3':
