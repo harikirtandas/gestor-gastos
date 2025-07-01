@@ -1,6 +1,22 @@
 # GESTOR DE GASTOS DIARIOS EN PYTHON
 
-# FUNCIONES
+import csv
+import os
+
+
+# Cargar gastos existentes desde archivo CSV si existe
+archivo_gastos = "gastos.csv"
+gastos = []
+
+if os.path.exists(archivo_gastos):
+    with open(archivo_gastos, mode="r", newline="", encoding="utf-8") as f:
+        lector = csv.DictReader(f)
+        for fila in lector:
+            # Convertimos el monto a float
+            fila['monto'] = float(fila['monto'])
+            gastos.append(fila)
+            
+
 # Función para solicitar y validar el día (1-31)
 def pedir_dia():
     """
@@ -151,6 +167,16 @@ while True:
         }
         gastos.append(nuevo_gasto)
         print("\n✅ Gasto agregado correctamente.")
+        
+        # Guardar el nuevo gasto en el archivo CSV
+        with open(archivo_gastos, mode="a", newline="", encoding="utf-8") as f:
+            campos = ['monto', 'categoria', 'descripción', 'fecha']
+            escritor = csv.DictWriter(f, fieldnames=campos)
+
+            # Si el archivo está vacío, escribimos el encabezado
+            if f.tell() == 0:
+                escritor.writeheader()
+            escritor.writerow(nuevo_gasto)
 
 
     # OPCIÓN 2: Ver gastos por fecha específica
