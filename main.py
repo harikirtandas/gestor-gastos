@@ -101,7 +101,7 @@ while True:
             'fecha': fecha
         }
         movimientos.append(nuevo_movimiento)
-        print("\n✅ Gasto agregado correctamente.")
+        print(f"\n✅ {tipo.capitalize()} agregado correctamente.")
         
         # Guardar el nuevo movimiento en el archivo CSV
         with open(archivo_gastos, mode="a", newline="", encoding="utf-8") as f:
@@ -191,7 +191,7 @@ while True:
 
                 detalle = ', '.join(partes)    # Unimos todas las partes en una sola línea separadas por comas
                 # Mostramos el número de movimiento (empezando desde 1) y el detalle completo
-                print(f"Gasto{i + 1}: {detalle}")
+                print(f"Movimiento {i + 1}: {detalle}")
 
 
     # OPCIÓN 6: Salir
