@@ -6,11 +6,12 @@ Aplicación de consola para registrar y consultar tus gastos diarios por fecha o
 
 ## ⚙️ Funcionalidades
 
-- Agregar nuevos gastos (monto, categoría, descripción y fecha)
-- Consultar gastos por fecha
-- Consultar gastos por categoría
-- Ver total gastado
-- Ver todos los gastos cargados
+- Agregar ingresos y gastos (monto, categoría, descripción y fecha)
+- Consultar movimientos por fecha
+- Consultar movimientos por categoría
+- Ver todos los movimientos cargados
+- Filtrar por tipo de movimiento (ingreso o gasto)
+- Ver totales de ingresos, gastos y balance final
 - Persistencia de datos en `gastos.csv`
 
 ---
@@ -30,4 +31,14 @@ Aplicación de consola para registrar y consultar tus gastos diarios por fecha o
    ```bash
    source venv/bin/activate  # en Mac/Linux
 
-3. python3 main.py
+3. Ejecutá el programa:
+   ```bash
+   python3 main.py
+   ```
+
+---
+
+## 👨‍💻 Autor
+
+Desarrollado por Jor  
+Argentina, 2025
